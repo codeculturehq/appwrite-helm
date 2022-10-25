@@ -20,7 +20,7 @@ spec:
       {{ end -}}
       containers:
       - name: mariadb
-        image: "appwrite/mariadb:1.2.0"
+        image: "mariadb:10.7"
         imagePullPolicy: IfNotPresent
         {{ if .Values.volumes.mysql.enabled -}}
         volumeMounts:

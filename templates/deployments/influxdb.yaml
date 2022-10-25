@@ -20,7 +20,7 @@ spec:
       {{ end -}}
       containers:
       - name: influxdb
-        image: "appwrite/influxdb:1.0.0"
+        image: "appwrite/influxdb:1.5.0"
         imagePullPolicy: IfNotPresent
         {{ if .Values.volumes.influxdb.enabled -}}
         volumeMounts:

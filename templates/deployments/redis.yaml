@@ -20,7 +20,7 @@ spec:
       {{ end -}}
       containers:
       - name: redis
-        image: "redis:6.0-alpine3.12"
+        image: "redis:7.0.4-alpine"
         imagePullPolicy: IfNotPresent
         {{ if .Values.volumes.redis.enabled -}}
         volumeMounts:

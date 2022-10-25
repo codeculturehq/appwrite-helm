@@ -97,8 +97,8 @@ startupProbe:
   command: [
       "mysqlshow",
       "--host=appwrite-db",
-      "--user=${MYSQL_USER}",
-      "--password=${MYSQL_PWD}",
+      "--user=$(MYSQL_USER)",
+      "--password=$(MYSQL_PWD)",
     ]
   env:
     - name: MYSQL_PWD
