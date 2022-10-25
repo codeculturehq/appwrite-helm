@@ -2,9 +2,9 @@
 
 ## ⚠️ ATTENTION: This is experimental installation method, no official support.
 
-Used Appwrite version: `0.11.0`
+Used Appwrite version: `1.0.3`
 
-Current chart version: `1.0.0`
+Current chart version: `1.0.1`
 
 <!-- RU: [link](README_ru.md) -->
 
