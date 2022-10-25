@@ -97,7 +97,8 @@ startupProbe:
   command: [
       "mysqlshow",
       "--host=appwrite-db",
-      "--user=user",
+      "--user=${MYSQL_USER}",
+      "--password=${MYSQL_PWD}",
     ]
   env:
     - name: MYSQL_PWD
@@ -105,6 +106,11 @@ startupProbe:
         secretKeyRef:
           name: "{{ .Release.Name }}-env"
           key: _APP_DB_PASS
+    - name: MYSQL_USER
+      valueFrom:
+        secretKeyRef:
+          name: "{{ .Release.Name }}-env"
+          key: _APP_DB_USER
 {{- end }}
 
 {{- define "redisCheck" -}}
