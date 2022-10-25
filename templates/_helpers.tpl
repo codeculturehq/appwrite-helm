@@ -96,7 +96,7 @@ startupProbe:
   image: sami/mysql-client:3.4
   command: [
       "mysqlshow",
-      "--host=aw-test-db.appwrite",
+      "--host=appwrite-db",
       "--user=user",
     ]
   env:
