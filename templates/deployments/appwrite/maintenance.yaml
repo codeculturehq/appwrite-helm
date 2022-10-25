@@ -26,6 +26,17 @@ spec:
               configMapKeyRef:
                 name: "{{ .Release.Name }}-env"
                 key: _APP_ENV
+          - name: _APP_DOMAIN_TARGET
+            valueFrom:
+              configMapKeyRef:
+                name: "{{ .Release.Name }}-env"
+                key: _APP_DOMAIN_TARGET
+          - name: _APP_DOMAIN
+            valueFrom:
+              configMapKeyRef:
+                name: "{{ .Release.Name }}-env"
+                key: _APP_DOMAIN_TARGET
+          {{- include "dbEnv" $ | nindent 10 }}
           {{- include "redisEnv" $ | nindent 10 }}
           {{/*- name: _APP_MAINTENANCE_INTERVAL
             valueFrom:
