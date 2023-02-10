@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Release.Name }}-worker-builds"
+spec:
+  selector:
+    matchLabels:
+      app: "{{ .Release.Name }}-worker-builds"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: "{{ .Release.Name }}-worker-builds"
+    spec:
+      initContainers:
+      {{- include "redisCheck" $ | nindent 6 }}
+      {{- include "dbCheck" $ | nindent 6 }}
+      containers:
+      - name: appwrite-worker-builds
+        image: "appwrite/appwrite:{{ .Chart.AppVersion }}"
+        command:
+          - "worker-builds"
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: _APP_ENV
+            valueFrom:
+              configMapKeyRef:
+                name: "{{ .Release.Name }}-env"
+                key: _APP_ENV
+          - name: _APP_OPENSSL_KEY_V1
+            valueFrom:
+              secretKeyRef:
+                name: "{{ .Release.Name }}-env"
+                key: _APP_OPENSSL_KEY_V1
+          - name: _APP_EXECUTOR_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: "{{ .Release.Name }}-env"
+                key: _APP_EXECUTOR_SECRET
+          - name: _APP_EXECUTOR_HOST
+            valueFrom:
+              secretKeyRef:
+                name: "{{ .Release.Name }}-env"
+                key: _APP_EXECUTOR_HOST
+          - name: _APP_LOGGING_PROVIDER
+            valueFrom:
+              secretKeyRef:
+                name: "{{ .Release.Name }}-env"
+                key: _APP_LOGGING_PROVIDER
+          - name: _APP_LOGGING_CONFIG
+            valueFrom:
+              secretKeyRef:
+                name: "{{ .Release.Name }}-env"
+                key: _APP_LOGGING_CONFIG
+          {{- include "redisEnv" $ | nindent 10 }}
+          {{- include "dbEnv" $ | nindent 10 }}
