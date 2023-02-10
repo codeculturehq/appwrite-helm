@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ .Release.Name }}-worker-audits"
+  name: "{{ .Release.Name }}-worker-messaging"
 spec:
   selector:
     matchLabels:
-      app: "{{ .Release.Name }}-worker-audits"
+      app: "{{ .Release.Name }}-worker-messaging"
   replicas: 1
   template:
     metadata:
       labels:
-        app: "{{ .Release.Name }}-worker-audits"
+        app: "{{ .Release.Name }}-worker-messaging"
     spec:
       initContainers:
       {{- include "redisCheck" $ | nindent 6 }}
       {{- include "dbCheck" $ | nindent 6 }}
       containers:
-      - name: appwrite-worker-audits
+      - name: appwrite-worker-messaging
         image: "appwrite/appwrite:{{ .Chart.AppVersion }}"
         command:
-          - "worker-audits"
+          - "worker-messaging"
         imagePullPolicy: IfNotPresent
         env:
           - name: _APP_ENV

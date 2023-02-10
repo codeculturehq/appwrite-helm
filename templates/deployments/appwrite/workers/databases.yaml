@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ .Release.Name }}-worker-audits.yaml"
+  name: "{{ .Release.Name }}-worker-databases.yaml"
 spec:
   selector:
     matchLabels:
-      app: "{{ .Release.Name }}-worker-audits.yaml"
+      app: "{{ .Release.Name }}-worker-databases.yaml"
   replicas: 1
   template:
     metadata:
       labels:
-        app: "{{ .Release.Name }}-worker-audits.yaml"
+        app: "{{ .Release.Name }}-worker-databases.yaml"
     spec:
       initContainers:
       {{- include "redisCheck" $ | nindent 6 }}
       {{- include "dbCheck" $ | nindent 6 }}
       containers:
-      - name: appwrite-worker-audits.yaml
+      - name: appwrite-worker-databases.yaml
         image: "appwrite/appwrite:{{ .Chart.AppVersion }}"
         command:
-          - "worker-audits.yaml"
+          - "worker-databases.yaml"
         imagePullPolicy: IfNotPresent
         env:
           - name: _APP_ENV
